@@ -5,9 +5,8 @@ destinations = {
     "VolcanoVillage",
     "Creek"
 }
---destinations[0] = "House"
 
-if true then
+while true do
     print("Available destinations:")
 
     for i = 1, #destinations do
