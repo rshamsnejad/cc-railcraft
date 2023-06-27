@@ -7,6 +7,6 @@ destinations = {
 destinations[0] = "House"
 
 
-for i = 0, (#destinations - 1) do
+for i = 0, #destinations do
     print(destinations[i])
 end
