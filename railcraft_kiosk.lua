@@ -16,11 +16,9 @@ if true then
 
     print("")
 
-    user_input = 0
     repeat
-        io.stdin:flush()
         io.write("Your choice? [1-"..#destinations.."] ")
-        user_input = io.read("*n")
+        user_input = tonumber(read())
     until math.floor(user_input) == user_input and user_input > 0 and user_input < 6
 
     print("Choo choo too "..destinations[user_input].."!")
