@@ -7,7 +7,9 @@ destinations = {
 }
 
 while true do
-    print("Available destinations:")
+
+    term.clear()
+    print("\nAvailable destinations:")
 
     for i = 1, #destinations do
         print("\t"..i..": "..destinations[i])
@@ -21,4 +23,6 @@ while true do
     until math.floor(user_input) == user_input and user_input > 0 and user_input < 6
 
     print("Choo choo too "..destinations[user_input].."!")
+    
+    sleep(1)
 end
