@@ -17,6 +17,7 @@ if true then
     print("")
 
     repeat
+        io.stdin:flush()
         io.write("Your choice? [1-"..#destinations.."] ")
         user_input = io.read("*n")
     until math.floor(user_input) == user_input and user_input > 0 and user_input < 6
