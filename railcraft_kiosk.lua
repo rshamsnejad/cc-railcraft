@@ -19,10 +19,10 @@ while true do
 
     repeat
         io.write("Your choice? [1-"..#destinations.."] ")
-        user_input = tonumber(read())
+        user_input = tonumber(read()) or 0
     until math.floor(user_input) == user_input and user_input > 0 and user_input < 6
 
     print("Choo choo too "..destinations[user_input].."!")
-    
+
     sleep(1)
 end
