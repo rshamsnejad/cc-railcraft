@@ -1,1 +1,0 @@
-term.write("pouet")
