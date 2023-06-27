@@ -24,5 +24,9 @@ while true do
 
     io.write("Choo choo too "..destinations[user_input].."!")
 
+    local crate = peripheral.find("actuallyadditions:block_giant_chest")
+
+    print(crate.size())
+
     sleep(1)
 end
