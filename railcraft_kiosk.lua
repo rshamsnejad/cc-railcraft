@@ -14,9 +14,12 @@ if true then
         print("\t"..i..": "..destinations[i])
     end
 
-    io.write("\nYour choice? [1-"..#destinations.."] ")
+    print("")
 
-    user_input = io.read("*n")
+    repeat
+        io.write("Your choice? [1-"..#destinations.."] ")
+        user_input = io.read("*n")
+    until math.floor(user_input) == user_input and user_input > 0 and user_input < 6
 
     print("Choo choo too "..destinations[user_input].."!")
 end
