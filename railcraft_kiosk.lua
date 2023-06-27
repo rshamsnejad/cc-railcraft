@@ -16,6 +16,7 @@ if true then
 
     print("")
 
+    user_input = 0
     repeat
         io.stdin:flush()
         io.write("Your choice? [1-"..#destinations.."] ")
