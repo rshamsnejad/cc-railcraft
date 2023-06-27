@@ -24,9 +24,10 @@ while true do
 
     io.write("Choo choo too "..destinations[user_input].."!")
 
-    local crate = peripheral.find("actuallyadditions:block_giant_chest")
-
-    print(crate.size())
+    local chest = peripheral.find("minecraft:chest")
+    for slot, item in pairs(chest.list()) do
+        print(("%d x %s in slot %d"):format(item.count, item.name, slot))
+    end
 
     sleep(1)
 end
