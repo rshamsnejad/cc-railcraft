@@ -1,3 +1,0 @@
-rm /disk/dev/railcraft_kiosk.lua
-/disk/programs/git get rshamsnejad cc-railcraft main railcraft_kiosk.lua /disk/dev/railcraft_kiosk.lua
-/disk/dev/railcraft_kiosk.lua
