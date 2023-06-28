@@ -14,19 +14,32 @@ destinations = {
 }
 buttons = {}
 buttonHeight = 1
+destinationPrefix = "Current destination: "
 
 viewport = viewportAPI.new({term = term})
 
-handler = function(element, x, y)
-    term.setBackgroundColor(colors.black)
-    term.clear()
-
-    print("Destination: "..element.text)
-
-    error()
+buttonHandler = function(element, x, y)
+    statusbtn.text = destinationPrefix..element.text
 
     return true -- requests redraw of current viewport
 end
+
+quit = function(element, x, y)
+    term.setBackgroundColor(colors.black)
+    term.clear()
+    error()
+end
+
+statusbtn = buttonAPI.new({
+    text = "Current destination: "..destinations[1],
+    x = buttonAPI.anchorLeft,
+    y = buttonAPI.anchorBottom,
+    height = buttonHeight,
+    width = buttonAPI.maxWidth,
+    isSticky = true,
+    backgroundColor = colors.green
+})
+viewport:addElement(statusbtn)
 
 for key, value in ipairs(destinations) do
     table.insert(
@@ -38,11 +51,11 @@ for key, value in ipairs(destinations) do
             height = buttonHeight,
             width = buttonAPI.maxWidth,
             isSticky = true,
-            backgroundColor = colors.green
+            backgroundColor = colors.blue
         })
     )
 
-    buttons[key].callback = handler
+    buttons[key].callback = buttonHandler
 
     viewport:addElement(buttons[key])
 end
