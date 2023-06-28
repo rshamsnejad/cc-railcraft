@@ -1,9 +1,9 @@
 if viewportAPI then os.unloadAPI("viewportAPI") end
-os.loadAPI("/dev/touchscreen-api/viewportAPI")
+os.loadAPI("/disk/dev/touchscreen-api/viewportAPI")
 if buttonAPI then os.unloadAPI("buttonAPI") end
-os.loadAPI("/dev/touchscreen-api/buttonAPI")
+os.loadAPI("/disk/dev/touchscreen-api/buttonAPI")
 if eventDispatcherAPI then os.unloadAPI("eventDispatcherAPI") end
-os.loadAPI("/dev/touchscreen-api/eventDispatcherAPI")
+os.loadAPI("/disk/dev/touchscreen-api/eventDispatcherAPI")
 
 destinations = {
     "House",
