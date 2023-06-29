@@ -5,18 +5,18 @@ os.loadAPI("/disk/dev/touchscreen-api/buttonAPI")
 if eventDispatcherAPI then os.unloadAPI("eventDispatcherAPI") end
 os.loadAPI("/disk/dev/touchscreen-api/eventDispatcherAPI")
 
-destinations = {
+local destinations = {
     "House",
     "NetherMeteor",
     "DesertJungle",
     "VolcanoVillage",
     "Creek"
 }
-buttons = {}
-buttonHeight = 1
-destinationPrefix = "Current destination: "
+local buttons = {}
+local buttonHeight = 1
+local destinationPrefix = "Current destination: "
 
-viewport = viewportAPI.new({term = term})
+local viewport = viewportAPI.new({term = term})
 
 buttonHandler = function(element, x, y)
     statusbtn.text = destinationPrefix..element.text
@@ -30,7 +30,7 @@ quit = function(element, x, y)
     error()
 end
 
-statusbtn = buttonAPI.new({
+local statusbtn = buttonAPI.new({
     text = "Current destination: "..destinations[1],
     x = buttonAPI.anchorLeft,
     y = buttonAPI.anchorBottom,
