@@ -8,32 +8,26 @@ os.loadAPI("/disk/dev/touchscreen-api/eventDispatcherAPI")
 local destinations = {
     "House",
     "NetherMeteor",
-    "DesertJungle",
+    "JungleDesert",
     "VolcanoVillage",
     "Creek"
 }
-local destinations_inv = {}
-for key, value in pairs(destinations) do
-    destinations_inv[value] = key
-end
 
 local buttons = {}
 local buttonHeight = 1
 local destinationPrefix = "Current destination: "
 
 local viewport = viewportAPI.new({term = term})
-chest_id = "minecraft:chest"
-track_id = "railcraft:routing_track"
-local chest = peripheral.find(chest_id)
+--local viewport = viewportAPI.new({term = peripheral.find("monitor")})
+track_id = "routing_track"
 local track = peripheral.find(track_id)
 
 buttonHandler = function(element, x, y)
     -- Before we change it, statusbtn.text contains the previous destination,
     -- which should be the one of the ticket already in place
-    track.pushItems(chest_id, 1, 1, destinations_inv[statusbtn.text])
+    track.setDestination(element.text)
 
-    statusbtn.text = destinationPrefix..element.text
-    chest.pushItems(track_id, destinations_inv[element.text], 1)
+    statusbtn.text = destinationPrefix..track.getDestination()
 
     return true -- requests redraw of current viewport
 end
@@ -44,8 +38,8 @@ quit = function(element, x, y)
     error()
 end
 
-local statusbtn = buttonAPI.new({
-    text = "Current destination: "..destinations[1],
+statusbtn = buttonAPI.new({
+    text = destinationPrefix..track.getDestination(),
     x = buttonAPI.anchorLeft,
     y = buttonAPI.anchorBottom,
     height = buttonHeight,
@@ -77,9 +71,12 @@ end
 
 viewport:redraw()
 
-
 eventDispatcherAPI.addHandler("mouse_click", function(event, side, xPos, yPos)
+--eventDispatcherAPI.addFilteredHandler("monitor_touch", "monitor", function(event, side, xPos, yPos)
     viewport:handleClick(xPos, yPos)
 end)
+--eventDispatcherAPI.addFilteredHandler("monitor_resize", "monitor", function()
+--  viewport:redraw()
+--end)
 
 eventDispatcherAPI.runDispatchLoop()
