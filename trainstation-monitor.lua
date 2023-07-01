@@ -15,12 +15,15 @@ local destinations = {
 
 local buttons = {}
 local buttonHeight = 1
-local destinationPrefix = "Current: "
+--local destinationPrefix = "Current: "
+local destinationPrefix = ""
 
 wrapped = "left"
 touchMonitor = peripheral.wrap(wrapped)
-touchMonitor.setTextScale(5)
-local viewport = viewportAPI.new({term = touchMonitor})
+local viewport = viewportAPI.new({
+    term = touchMonitor,
+    textScale = 0.5
+})
 local track = peripheral.find("routing_track")
 
 buttonHandler = function(element, x, y)
@@ -77,6 +80,4 @@ eventDispatcherAPI.addFilteredHandler("monitor_resize", wrapped, function()
        viewport:redraw()
 end)
 
-
-    eventDispatcherAPI.runDispatchLoop()
-
+eventDispatcherAPI.runDispatchLoop()
