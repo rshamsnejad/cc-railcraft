@@ -1,5 +1,3 @@
-require "libsbcc"
-
 if viewportAPI then os.unloadAPI("viewportAPI") end
 os.loadAPI("/disk/dev/touchscreen-api/viewportAPI")
 if buttonAPI then os.unloadAPI("buttonAPI") end
@@ -18,7 +16,7 @@ if #args <= 0 then
     print("\t"..scriptName.." monitor_4")
     print("\t"..scriptName.." right")
 
-    libsbcc.quit()
+    error()
 end
 
 local destinations = {
