@@ -70,7 +70,6 @@ for key, value in ipairs(destinations) do
     viewport:addElement(buttons[key])
 end
 
-
 viewport:redraw()
 
 eventDispatcherAPI.addFilteredHandler("monitor_touch", wrapped, function(event, side, xPos, yPos)

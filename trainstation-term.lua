@@ -18,13 +18,10 @@ local buttonHeight = 1
 local destinationPrefix = "Current destination: "
 
 local viewport = viewportAPI.new({term = term})
---local viewport = viewportAPI.new({term = peripheral.find("monitor")})
 track_id = "routing_track"
 local track = peripheral.find(track_id)
 
 buttonHandler = function(element, x, y)
-    -- Before we change it, statusbtn.text contains the previous destination,
-    -- which should be the one of the ticket already in place
     track.setDestination(element.text)
 
     statusbtn.text = destinationPrefix..track.getDestination()
@@ -68,15 +65,10 @@ for key, value in ipairs(destinations) do
     viewport:addElement(buttons[key])
 end
 
-
 viewport:redraw()
 
 eventDispatcherAPI.addHandler("mouse_click", function(event, side, xPos, yPos)
---eventDispatcherAPI.addFilteredHandler("monitor_touch", "monitor", function(event, side, xPos, yPos)
     viewport:handleClick(xPos, yPos)
 end)
---eventDispatcherAPI.addFilteredHandler("monitor_resize", "monitor", function()
---  viewport:redraw()
---end)
 
 eventDispatcherAPI.runDispatchLoop()
