@@ -1,9 +1,25 @@
+require "libsbcc"
+
 if viewportAPI then os.unloadAPI("viewportAPI") end
 os.loadAPI("/disk/dev/touchscreen-api/viewportAPI")
 if buttonAPI then os.unloadAPI("buttonAPI") end
 os.loadAPI("/disk/dev/touchscreen-api/buttonAPI")
 if eventDispatcherAPI then os.unloadAPI("eventDispatcherAPI") end
 os.loadAPI("/disk/dev/touchscreen-api/eventDispatcherAPI")
+
+args = {...}
+
+scriptName = "trainstation.lua"
+
+if #args <= 0 then
+    print("Usage:")
+    print("\t"..scriptName.." <monitor wrap-id>")
+    print("Examples:")
+    print("\t"..scriptName.." monitor_4")
+    print("\t"..scriptName.." right")
+
+    libsbcc.quit()
+end
 
 local destinations = {
     "House",
@@ -15,24 +31,28 @@ local destinations = {
 
 local buttons = {}
 local buttonHeight = 1
-local destinationPrefix = "Current destination: "
+--local destinationPrefix = "Current: "
+local destinationPrefix = ""
 
-local viewport = viewportAPI.new({term = term})
-track_id = "routing_track"
-local track = peripheral.find(track_id)
+local wrapId = args[1]
+
+if wrapId == "term" then
+    wrapped = term
+else
+    wrapped = peripheral.wrap(wrapId)
+end
+
+local viewport = viewportAPI.new({
+    term = wrapped,
+    textScale = 0.5
+})
+local track = peripheral.find("routing_track")
 
 buttonHandler = function(element, x, y)
     track.setDestination(element.text)
-
     statusbtn.text = destinationPrefix..track.getDestination()
 
     return true -- requests redraw of current viewport
-end
-
-quit = function(element, x, y)
-    term.setBackgroundColor(colors.black)
-    term.clear()
-    error()
 end
 
 statusbtn = buttonAPI.new({
@@ -56,19 +76,27 @@ for key, value in ipairs(destinations) do
             height = buttonHeight,
             width = buttonAPI.maxWidth,
             isSticky = true,
-            backgroundColor = colors.blue
+            backgroundColor = colors.blue,
+            callback = buttonHandler
         })
     )
-
-    buttons[key].callback = buttonHandler
 
     viewport:addElement(buttons[key])
 end
 
 viewport:redraw()
 
-eventDispatcherAPI.addHandler("mouse_click", function(event, side, xPos, yPos)
-    viewport:handleClick(xPos, yPos)
-end)
+if wrapId == "term" then
+    eventDispatcherAPI.addHandler("mouse_click", function(event, side, xPos, yPos)
+        viewport:handleClick(xPos, yPos)
+    end)
+else
+    eventDispatcherAPI.addFilteredHandler("monitor_touch", wrapId, function(event, side, xPos, yPos)
+        viewport:handleClick(xPos, yPos)
+    end)
+    eventDispatcherAPI.addFilteredHandler("monitor_resize", wrapId, function()
+        viewport:redraw()
+    end)
+end
 
 eventDispatcherAPI.runDispatchLoop()
