@@ -11,7 +11,8 @@ scriptName = "trainstation.lua"
 
 if #args <= 0 then
     print("Usage:")
-    print("\t"..scriptName.." <monitor wrap-id>")
+    print("Print to terminal :\t"..scriptName.." term")
+    print("Print to monitor  :\t"..scriptName.." <monitor wrap-id>")
     print("Examples:")
     print("\t"..scriptName.." monitor_4")
     print("\t"..scriptName.." right")
