@@ -2,7 +2,7 @@
 -- 1/ Convert a .wav file to a .dfpwm one with LionRay DFPWM Converter
 -- 2/ Upload on tmpfiles.org
 -- 3/ `wget` that shit
--- 4/ `tape write` that wgotten thing
+-- 4/ `tape write` that wgotten shit
 -- 5/ Call this here script like this:
 --     `loop 3.2`
 --    with 3.2 to replace with the end time of the loop 
