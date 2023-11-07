@@ -20,19 +20,19 @@ if #args <= 1 then
     error()
 end
 
-local destinations = {
+local floors = {
     "0",
     "-1",
     "-2"
 }
 
 local wrapId = args[1]
-local thisDestination = args[2]
+local thisFloor = args[2]
 
 local buttons = {}
 local buttonHeight = 1
---local destinationPrefix = "Current: "
-local destinationPrefix = ""
+--local floorPrefix = "Current: "
+local floorPrefix = ""
 
 if wrapId == "term" then
     wrapped = term
@@ -47,13 +47,14 @@ local viewport = viewportAPI.new({
 local track = peripheral.find("routing_track")
 
 buttonHandler = function(element, x, y)
-    statusbtn.text = destinationPrefix..element.text
+    statusbtn.text = floorPrefix..element.text
+
 
     return true -- requests redraw of current viewport
 end
 
 statusbtn = buttonAPI.new({
-    text = destinationPrefix,
+    text = floorPrefix,
     x = buttonAPI.anchorLeft,
     y = buttonAPI.anchorBottom,
     height = buttonHeight,
@@ -63,7 +64,7 @@ statusbtn = buttonAPI.new({
 })
 viewport:addElement(statusbtn)
 
-for key, value in ipairs(destinations) do
+for key, value in ipairs(floors) do
     table.insert(
         buttons,
         buttonAPI.new({
