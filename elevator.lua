@@ -5,6 +5,9 @@ os.loadAPI("/disk/dev/touchscreen-api/buttonAPI")
 if eventDispatcherAPI then os.unloadAPI("eventDispatcherAPI") end
 os.loadAPI("/disk/dev/touchscreen-api/eventDispatcherAPI")
 
+-- Connect to the global network through the modem on the back face
+rednet.open("back")
+
 args = {...}
 
 scriptName = "elevator.lua"
@@ -28,6 +31,7 @@ local floors = {
 
 local wrapId = args[1]
 local thisFloor = args[2]
+local rednetProtocol = "MainElevator"
 
 local buttons = {}
 local buttonHeight = 1
@@ -48,7 +52,7 @@ local track = peripheral.find("routing_track")
 
 buttonHandler = function(element, x, y)
     statusbtn.text = floorPrefix..element.text
-
+    rednet.broadcast(element.text, rednetProtocol)
 
     return true -- requests redraw of current viewport
 end
